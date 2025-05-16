@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Flappy Bird</title>
+  <title>Flappy Bird Fullscreen Start</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="gameCanvas" width="320" height="480"></canvas>
+  <button id="startBtn" style="font-size:24px; padding:10px 20px; position:absolute; top:40%; left:50%; transform:translate(-50%, -50%); cursor:pointer;">
+    Click to Start Fullscreen & Play
+  </button>
+  <canvas id="gameCanvas" style="display:none;"></canvas>
   <script src="game.js"></script>
 </body>
 </html>
