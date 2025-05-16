@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Bird</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Flappy Bird Fullscreen Start</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
+      background: skyblue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+    #startBtn {
+      font-size: 24px;
+      padding: 15px 30px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease;
+    }
+    #startBtn:hover {
+      background-color: #0056b3;
+    }
+    #gameCanvas {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      background: skyblue;
+    }
+  </style>
 </head>
 <body>
-    <div id="game-container">
-        <div id="score-display">0</div>
-        <div id="bird"></div>
-        <div id="game-over">Game Over<br>Press Space to Restart</div>
-        <div id="start-screen">Flappy Bird<br>Press Space to Start</div>
-    </div>
-    <script src="game.js"></script>
+  <button id="startBtn">Click to Start Fullscreen & Play</button>
+  <canvas id="gameCanvas"></canvas>
+  <script src="game.js"></script>
 </body>
 </html>
