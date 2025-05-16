@@ -14,12 +14,12 @@ window.onload = function () {
     y: 0, // set in resetGame()
     radius: 20,
     gravity: 0.4,
-    lift: -10,
+    center: -10,
     velocity: 0
   };
 
-  const pipes = [];
-  const pipeWidth = 60;
+  const pipes = [ ];
+  const pipeWidth = 69;
   let pipeGap = 350;  // wide gap
   let pipeSpeed = 2;
   let frame = 0;
