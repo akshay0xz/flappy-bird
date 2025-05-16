@@ -126,3 +126,16 @@ window.onload = function () {
 
   gameLoop();
 };
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+}
+const canvas = document.getElementById('gameCanvas');
+canvas.addEventListener('click', () => {
+  toggleFullScreen();
+});
