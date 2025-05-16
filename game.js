@@ -8,20 +8,20 @@ window.onload = function () {
     canvas.height = window.innerHeight;
   }
 
-  // Bird variables (easy physics)
+  // Bird properties
   const bird = {
-    x: 100,
-    y: 0, // set in resetGame
+    x: 150,
+    y: 0, // set in resetGame()
     radius: 20,
-    gravity: 0.4,   // slower fall
-    lift: -10,      // gentle lift
+    gravity: 0.4,
+    lift: -10,
     velocity: 0
   };
 
   const pipes = [];
   const pipeWidth = 60;
-  let pipeGap = 350;  // wider gap = easier
-  let pipeSpeed = 2;  
+  let pipeGap = 350;  // wide gap
+  let pipeSpeed = 2;
   let frame = 0;
   let score = 0;
   let gameStarted = false;
@@ -46,12 +46,13 @@ window.onload = function () {
 
   function updatePipes() {
     if (frame % 90 === 0) {
-      let top = Math.random() * (canvas.height - pipeGap - 200) + 50;
-      pipes.push({ x: canvas.width, top: top, scored: false });
+      const maxPipeTop = canvas.height - pipeGap - 100;
+      const top = Math.random() * maxPipeTop + 50;
+      pipes.push({ x: canvas.width + 50, top: top, scored: false }); // pipes start a little outside screen
     }
 
     for (let i = 0; i < pipes.length; i++) {
-      let p = pipes[i];
+      const p = pipes[i];
       p.x -= pipeSpeed;
 
       // Collision detection
@@ -63,22 +64,20 @@ window.onload = function () {
         gameStarted = false;
       }
 
-      // Scoring
+      // Score update
       if (p.x + pipeWidth < bird.x && !p.scored) {
         score++;
         p.scored = true;
 
-        // Increase difficulty every 5 points (optional)
+        // Difficulty increase every 5 points
         if (score % 5 === 0) {
-          pipeSpeed += 0.3; // slow increase
-          if (pipeGap > 250) { // don't reduce below 250 in easy mode
-            pipeGap -= 10;
-          }
+          pipeSpeed += 0.3;
+          if (pipeGap > 250) pipeGap -= 10;
         }
       }
     }
 
-    // Remove off-screen pipes
+    // Remove pipes off screen
     if (pipes.length && pipes[0].x + pipeWidth < 0) {
       pipes.shift();
     }
@@ -94,18 +93,18 @@ window.onload = function () {
       ctx.fillText("Game Over", canvas.width / 2 - 130, canvas.height / 2 - 20);
 
       ctx.font = "28px sans-serif";
-      ctx.fillText("Press Space to Restart", canvas.width / 2 - 150, canvas.height / 2 + 40);
+      ctx.fillText("Press Space to Restart", canvas.width / 2 - 160, canvas.height / 2 + 40);
     }
   }
 
   function resetGame() {
-    bird.y = canvas.height / 2;  // bird center
+    bird.y = canvas.height / 2;  // center vertically
     bird.velocity = 0;
     pipes.length = 0;
     score = 0;
     frame = 0;
-    pipeSpeed = 2;      // easy starting speed
-    pipeGap = 350;      // easy wide gap
+    pipeSpeed = 2;
+    pipeGap = 350;
     gameStarted = true;
   }
 
@@ -117,7 +116,7 @@ window.onload = function () {
       bird.velocity += bird.gravity;
       bird.y += bird.velocity;
 
-      // Boundary check
+      // Keep bird inside canvas vertically
       if (bird.y + bird.radius > canvas.height || bird.y - bird.radius < 0) {
         gameStarted = false;
       }
