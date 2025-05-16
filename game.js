@@ -20,7 +20,7 @@ window.onload = function () {
 
   const pipes = [ ];
   const pipeWidth = 69;
-  let pipeGap = 350;  // wide gap
+  let pipeGap = 380;  // wide gap
   let pipeSpeed = 2;
   let frame = 0;
   let score = 0;
@@ -72,7 +72,7 @@ window.onload = function () {
         // Difficulty increase every 5 points
         if (score % 5 === 0) {
           pipeSpeed += 0.3;
-          if (pipeGap > 250) pipeGap -= 10;
+          if (pipeGap > 501) pipeGap -= 50;
         }
       }
     }
