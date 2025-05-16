@@ -1,14 +1,17 @@
-body {
-  background: #eee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+* {
   margin: 0;
-  font-family: sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 canvas {
-  border: 2px solid #333;
-  background: skyblue;
+  display: block;
+  width: 100vw;
+  height: 100vh;
 }
