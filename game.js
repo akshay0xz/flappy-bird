@@ -1,40 +1,34 @@
 window.onload = function () {
-  const canvas = document.getElementById("gameCanvas");
-  const ctx = canvas.getContext("2d");
+  const startBtn = document.getElementById('startBtn');
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
 
-  // Resize canvas to fill window
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
 
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
+  // Hide start button, show canvas, enter fullscreen and start game
+  startBtn.onclick = async () => {
+    startBtn.style.display = 'none';
+    canvas.style.display = 'block';
+    resizeCanvas();
 
-  // Fullscreen toggle function
-  function toggleFullScreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
+    try {
+      await document.documentElement.requestFullscreen();
+    } catch (err) {
+      alert('Fullscreen request failed: ' + err.message);
     }
-  }
 
-  // Toggle fullscreen on 'F' key press
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'f' || e.key === 'F') {
-      toggleFullScreen();
-    }
+    startGame();
+  };
+
+  window.addEventListener('resize', () => {
+    resizeCanvas();
   });
 
-  // Toggle fullscreen on canvas click
-  canvas.addEventListener('click', () => {
-    toggleFullScreen();
-  });
+  // Your game variables and functions
 
-  // Game variables
   const bird = {
     x: 100,
     y: 150,
@@ -51,13 +45,8 @@ window.onload = function () {
   let score = 0;
   let gameStarted = false;
 
-  // Start or flap bird on Space key
   document.addEventListener("keydown", function (e) {
-    if (e.code === "Space") {
-      if (!gameStarted) {
-        resetGame();
-        gameStarted = true;
-      }
+    if (e.code === "Space" && gameStarted) {
       bird.velocity = bird.lift;
     }
   });
@@ -68,6 +57,7 @@ window.onload = function () {
     pipes.length = 0;
     score = 0;
     frame = 0;
+    gameStarted = true;
   }
 
   function drawBird() {
@@ -122,10 +112,9 @@ window.onload = function () {
 
     if (!gameStarted) {
       ctx.font = "bold 36px sans-serif";
-      ctx.fillText("Flappy Bird", canvas.width / 2 - 100, canvas.height / 2 - 20);
+      ctx.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2 - 20);
       ctx.font = "24px sans-serif";
-      ctx.fillText("Press Space to Start", canvas.width / 2 - 120, canvas.height / 2 + 20);
-      ctx.fillText("Press 'F' or Click to Toggle Fullscreen", canvas.width / 2 - 190, canvas.height / 2 + 60);
+      ctx.fillText("Press Space to Restart", canvas.width / 2 - 120, canvas.height / 2 + 20);
     }
   }
 
@@ -151,5 +140,8 @@ window.onload = function () {
     requestAnimationFrame(gameLoop);
   }
 
-  gameLoop();
+  function startGame() {
+    resetGame();
+    gameLoop();
+  }
 };
