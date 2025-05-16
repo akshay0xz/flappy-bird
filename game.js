@@ -11,7 +11,7 @@ window.onload = function () {
   // Game variables
   const bird = {
     x: 100,
-    y: 0,         // will set later in reset
+    y: 0, // set in resetGame()
     radius: 20,
     gravity: 0.6,
     lift: -12,
@@ -20,7 +20,7 @@ window.onload = function () {
 
   const pipes = [];
   const pipeWidth = 60;
-  let pipeGap = 220;  // bigger gap for easier start
+  let pipeGap = 280;  // Starting gap between pipes (bada)
   let pipeSpeed = 3;  
   let frame = 0;
   let score = 0;
@@ -29,7 +29,6 @@ window.onload = function () {
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // Draw bird as yellow circle
   function drawBird() {
     ctx.fillStyle = "yellow";
     ctx.beginPath();
@@ -37,7 +36,6 @@ window.onload = function () {
     ctx.fill();
   }
 
-  // Draw pipes
   function drawPipes() {
     ctx.fillStyle = "green";
     for (let p of pipes) {
@@ -46,7 +44,6 @@ window.onload = function () {
     }
   }
 
-  // Update pipes position and add new pipes
   function updatePipes() {
     if (frame % 90 === 0) {
       let top = Math.random() * (canvas.height - pipeGap - 200) + 50;
@@ -74,20 +71,19 @@ window.onload = function () {
         // Increase difficulty every 5 points
         if (score % 5 === 0) {
           pipeSpeed += 0.5;
-          if (pipeGap > 140) {  // don't reduce below 140
+          if (pipeGap > 140) {  // minimum gap limit
             pipeGap -= 10;
           }
         }
       }
     }
 
-    // Remove off-screen pipes
+    // Remove pipes off screen
     if (pipes.length && pipes[0].x + pipeWidth < 0) {
       pipes.shift();
     }
   }
 
-  // Draw score and messages
   function drawText() {
     ctx.fillStyle = "white";
     ctx.font = "bold 32px sans-serif";
@@ -102,19 +98,17 @@ window.onload = function () {
     }
   }
 
-  // Reset game variables and center bird vertically
   function resetGame() {
-    bird.y = canvas.height / 2;
+    bird.y = canvas.height / 2;  // bird ko center vertically laao
     bird.velocity = 0;
     pipes.length = 0;
     score = 0;
     frame = 0;
     pipeSpeed = 3;
-    pipeGap = 220;
+    pipeGap = 280;  // pipe gap bada start me set karo
     gameStarted = true;
   }
 
-  // Game loop
   function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -123,7 +117,7 @@ window.onload = function () {
       bird.velocity += bird.gravity;
       bird.y += bird.velocity;
 
-      // Check if bird hits top or bottom
+      // Bird screen ke bahar na jaaye
       if (bird.y + bird.radius > canvas.height || bird.y - bird.radius < 0) {
         gameStarted = false;
       }
@@ -138,7 +132,6 @@ window.onload = function () {
     requestAnimationFrame(gameLoop);
   }
 
-  // Key press for flap or restart
   document.addEventListener("keydown", function (e) {
     if (e.code === "Space") {
       if (gameStarted) {
@@ -149,7 +142,6 @@ window.onload = function () {
     }
   });
 
-  // Start button: fullscreen + start game
   startBtn.onclick = async () => {
     startBtn.style.display = 'none';
     canvas.style.display = 'block';
