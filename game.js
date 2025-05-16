@@ -134,7 +134,7 @@ window.onload = function () {
   document.addEventListener("keydown", function (e) {
     if (e.code === "Space") {
       if (gameStarted) {
-        bird.velocity = bird.lift;
+        bird.velocity = bird.center;
       } else {
         resetGame();
       }
