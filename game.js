@@ -2,6 +2,7 @@ window.onload = function () {
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
 
+  // Resize canvas to fill window
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -10,6 +11,30 @@ window.onload = function () {
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
 
+  // Fullscreen toggle function
+  function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
+
+  // Toggle fullscreen on 'F' key press
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'f' || e.key === 'F') {
+      toggleFullScreen();
+    }
+  });
+
+  // Toggle fullscreen on canvas click
+  canvas.addEventListener('click', () => {
+    toggleFullScreen();
+  });
+
+  // Game variables
   const bird = {
     x: 100,
     y: 150,
@@ -26,6 +51,7 @@ window.onload = function () {
   let score = 0;
   let gameStarted = false;
 
+  // Start or flap bird on Space key
   document.addEventListener("keydown", function (e) {
     if (e.code === "Space") {
       if (!gameStarted) {
@@ -99,6 +125,7 @@ window.onload = function () {
       ctx.fillText("Flappy Bird", canvas.width / 2 - 100, canvas.height / 2 - 20);
       ctx.font = "24px sans-serif";
       ctx.fillText("Press Space to Start", canvas.width / 2 - 120, canvas.height / 2 + 20);
+      ctx.fillText("Press 'F' or Click to Toggle Fullscreen", canvas.width / 2 - 190, canvas.height / 2 + 60);
     }
   }
 
@@ -126,16 +153,3 @@ window.onload = function () {
 
   gameLoop();
 };
-function toggleFullScreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    }
-  }
-}
-const canvas = document.getElementById('gameCanvas');
-canvas.addEventListener('click', () => {
-  toggleFullScreen();
-});
