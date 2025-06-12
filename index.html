@@ -2,41 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Flappy Bird Fullscreen Start</title>
-  <style>
-    html, body {
-      margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
-      background: skyblue;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-    }
-    #startBtn {
-      font-size: 24px;
-      padding: 15px 30px;
-      cursor: pointer;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: background-color 0.3s ease;
-    }
-    #startBtn:hover {
-      background-color: #0056b3;
-    }
-    #gameCanvas {
-      display: none;
-      width: 100vw;
-      height: 100vh;
-      background: skyblue;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VID Gallery</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <button id="startBtn">Click to Start Fullscreen & Play</button>
-  <canvas id="gameCanvas"></canvas>
-  <script src="game.js"></script>
+  <div class="header">
+    <h1>🎬 Public Video Gallery</h1>
+    <div class="logo">📺 VID Gallery</div>
+  </div>
+  <div class="container">
+    <form id="videoForm">
+      <input type="text" id="videoURL" placeholder="Paste video URL (e.g. YouTube or Drive)" required />
+      <input type="text" id="videoTitle" placeholder="Video Title" required />
+      <button type="submit">Add Video</button>
+    </form>
+    <div id="videoList"></div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
